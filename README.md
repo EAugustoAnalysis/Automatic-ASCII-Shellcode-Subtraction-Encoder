@@ -19,5 +19,5 @@ Note: Shellcode length must be a multiple of 4, nop padding can accomplish this.
 
 Coming Soon:
 - Verbosity settings
-- Badchar Adaptability, currently badchars are 00, 20, 0a, 0d, 3a, 3f, and anything that's not valid ASCII
+- Custom badchars, currently badchars are 00, 20, 0a, 0d, 3a, 3f, and anything that's not valid ASCII
 - Custom output files
