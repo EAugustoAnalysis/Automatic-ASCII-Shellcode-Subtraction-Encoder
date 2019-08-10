@@ -17,6 +17,8 @@ $ python3 encoder.py -s [Null free shellcode]
 Outputs assembly to aassc.asm, gives breakdown on terminal
 Note: Shellcode length must be a multiple of 4, nop padding can accomplish this. Hex format only for now.
 
+This script will not generate the instructions required to reserve stack space for the decoded shellcode.
+
 Coming Soon:
 - Verbosity settings
 - Custom badchars, currently badchars are 00, 20, 0a, 0d, 3a, 3f, and anything that's not valid ASCII
