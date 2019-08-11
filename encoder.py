@@ -1,8 +1,6 @@
 #Automatic ASCII Shellcode Subtraction Encoder
 #Expands on BUGTREE's z3ncoder, which can encode individual 32 bit hex addresses, by taking in a full shellcode payload and outputting assembly
 #Written by Elias Augusto
-#Coming soon - Options for additional badchars, option to output assembly to a specified file
-#Issues - Breaks if shellcode contains null bytes
 
 import argparse
 from z3 import *
@@ -14,7 +12,7 @@ from colorama import Fore,Back,Style
 def solve(b,bc): #BUGTREE's function that sub encodes 32 bit hex addresses in 0xFFFFFFFF format
     s = Solver()
     bad_chars = [ 0x20, 0x80, 0x0A, 0x0D, 0x2F, 0x3A, 0x3F ]
-    bad_chars+=bc
+    bad_chars+=bc #I added ability to specify additional badchars
     x, y, z = BitVecs('x y z', 32)
     variables = [x, y, z]
 
