@@ -40,7 +40,7 @@ Known Compatibility Issues
 #Coming Soon:
 - Verbosity settings
 - ~~Automatic nop padding~~
-implemented
+implemented as an optional flag
 - Return byte length of generated shellcode
 - ~~Proper processing of "0x00000000" lines~~
 implemented
