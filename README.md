@@ -42,6 +42,8 @@ and eax,0x554e4d4a ;normalize eax
 and eax,0x2a313235 ;normalize eax
 ```
 
+Default (immutable) badchars: 0x00,0x01-0x20 (includes 0x0d and 0x0a),0x3a,0x0f,0x80-0xFF
+
 # Coming Soon
 - Verbosity settings
 - ~~Automatic nop padding~~
