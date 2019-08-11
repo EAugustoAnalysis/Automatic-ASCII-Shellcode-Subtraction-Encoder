@@ -37,7 +37,7 @@ Known Compatibility Issues
 - When used with MSFVenom Shikata_ga_nai encoder, has an unexplained tendency to generate odd instructions and overwrite the EIP.
 
 
-# Coming Soon:
+# Coming Soon
 - Verbosity settings
 - ~~Automatic nop padding~~
 implemented as an optional flag
@@ -50,3 +50,6 @@ implemented
 implemented
 - ~~Custom normalizer~~
 implemented
+
+# Coming Eventually
+- Automatic badchar-based normalizer adjustment
