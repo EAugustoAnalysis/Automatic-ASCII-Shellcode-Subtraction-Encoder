@@ -21,8 +21,6 @@ Example
 $ python3 encoder.py -s 6681caff0f42526a0258cd2e3c055a74efb8543030578bfaaf75eaaf75e7ffe7
 ```
 
-Outputs assembly to aassc.asm, gives additional information on terminal.
-
 Note: Shellcode length must be a multiple of 4, nop padding can accomplish this. Shellcode must be in hex format.
 
 This script will not generate the instructions required to reserve stack space for the decoded shellcode.
@@ -32,8 +30,12 @@ This script will not generate the instructions required to reserve stack space f
 
 Known Compatibility Issues
 - When used with MSFVenom Shikata_ga_nai encoder, has an unexplained tendency to generate odd instructions and overwrite the EIP.
+- 4 byte aligned payloads with a line of four null bytes will be processed normally, but the line of null bytes will not be processed properly. These lines will be shown in the shellcode breakdown on the terminal. I am working on this issue.
 
 Coming Soon:
 - Verbosity settings
-- Custom badchars, (currently badchars are 00, 20, 0a, 0d, 3a, 3f, and any character that's not printable, valid ASCII)
-- Custom output files
+- length of shellcode
+- Proper processing of "0x00000000" lines - working on this today
+- Custom badchars, (currently badchars are 00, 20, 0a, 0d, 3a, 3f, and any character that's not printable, valid ASCII) - implemented
+- Custom output files for assembly code - implemented
+- Custom normalizer - implemented
