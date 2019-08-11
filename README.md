@@ -13,7 +13,7 @@ https://github.com/marcosValle/z3ncoder
 
 Usage
 ```
-$ python3 encoder.py -s [shellcode]
+$ python3 encoder.py -s [shellcode] -b [badchars] -n [custom normalizer] -f [output file]
 ```
 
 Example
@@ -30,12 +30,12 @@ This script will not generate the instructions required to reserve stack space f
 
 Known Compatibility Issues
 - When used with MSFVenom Shikata_ga_nai encoder, has an unexplained tendency to generate odd instructions and overwrite the EIP.
-- 4 byte aligned payloads with a line of four null bytes will be processed normally, but the line of null bytes will not be processed properly. These lines will be shown in the shellcode breakdown on the terminal. I am working on this issue.
+
 
 Coming Soon:
 - Verbosity settings
 - length of shellcode
-- Proper processing of "0x00000000" lines - working on this today
+- Proper processing of "0x00000000" lines - implemented
 - Custom badchars, (currently badchars are 00, 20, 0a, 0d, 3a, 3f, and any character that's not printable, valid ASCII) - implemented
 - Custom output files for assembly code - implemented
 - Custom normalizer - implemented
