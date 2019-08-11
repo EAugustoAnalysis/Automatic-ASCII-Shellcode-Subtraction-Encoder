@@ -39,7 +39,7 @@ Coming Soon:
 - Return byte length of generated shellcode
 - ~~Proper processing of "0x00000000" lines~~
 implemented
-- ~~Custom badchars, (currently badchars are 00, 20, 0a, 0d, 3a, 3f, and any character that's not printable, valid ASCII) ~~
+- ~~Custom badchars, (currently badchars are 00, 20, 0a, 0d, 3a, 3f, and any character that's not printable, valid ASCII)~~
 implemented
 - ~~Custom output files for assembly code~~
 implemented
