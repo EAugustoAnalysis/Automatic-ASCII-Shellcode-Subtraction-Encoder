@@ -13,12 +13,14 @@ https://github.com/marcosValle/z3ncoder
 
 Usage
 ```
-$ python3 encoder.py -s [shellcode] -b [badchars] -n [custom normalizer] -f [output file]
+$ python3 encoder.py -s [shellcode] -b [badchars] -n [custom eax normalizer] -f [output file]
 ```
 
 Example
 ```
 $ python3 encoder.py -s 6681caff0f42526a0258cd2e3c055a74efb8543030578bfaaf75eaaf75e7ffe7
+$ python3 encoder.py -s 6681caff0f42526a0258cd2e3c055a74efb8543030578bfaaf75eaaf75e7ffe7 -f egghunter.asm
+$ python3 encoder.py -s 6681caff0f42526a0258cd2e3c055a74efb8543030578bfaaf75eaaf75e7ffe7 -b "0x2e,0x40" -n "and eax,0x23232323\nand eax,0x42324543\nand eax, 0x44444444"
 ```
 
 Note: Shellcode length must be a multiple of 4, nop padding can accomplish this. Shellcode must be in hex format.
