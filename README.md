@@ -38,8 +38,8 @@ Known Compatibility Issues
 
 Default Normalizer
 ```
-and eax,0x554e4d4a ;Set EAX to 0x00000000
-and eax,0x2a313235 
+and eax,0x554e4d4a ;normalize eax
+and eax,0x2a313235 ;normalize eax
 ```
 
 # Coming Soon
