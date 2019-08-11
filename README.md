@@ -1,5 +1,5 @@
 # Automatic ASCII Shellcode Subtraction Encoder
-Generates ASCII subtraction encoded shellcode for NASM.
+Generates printable ASCII subtraction encoded shellcode for NASM.
 Installation
 ```
 $ git clone https://github.com/EAugustoAnalysis/Automatic-ASCII-Shellcode-Subtraction-Encoder.git
@@ -34,5 +34,5 @@ Known Compatibility Issues
 
 Coming Soon:
 - Verbosity settings
-- Custom badchars, (currently badchars are 00, 20, 0a, 0d, 3a, 3f, and anything that's not valid ASCII)
+- Custom badchars, (currently badchars are 00, 20, 0a, 0d, 3a, 3f, and any character that's not printable, valid ASCII)
 - Custom output files
