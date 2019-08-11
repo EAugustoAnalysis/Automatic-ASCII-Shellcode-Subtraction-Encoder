@@ -37,9 +37,9 @@ def solve(b,bc): #BUGTREE's function that sub encodes 32 bit hex addresses in 0x
 
 parser = argparse.ArgumentParser() #Argument that takes shellcode 
 parser.add_argument("-s", "--shellcode", type=str,
-                    help="Input hex shellcode with a byte length of a multiple of 4. Handles most payloads with null bytes.")
+                    help="Input hex shellcode with a byte length of a multiple of 4.")
 parser.add_argument("-b", "--badchars", type=str,
-                    help="Input badchars in comma separated format: -b \"0x01,0x02,0x03\".")
+                    help="Input badchars in comma separated format: -b \"0x01,0x02,0x03\". Note that too many additional badchars may cause code generation to fail.")
 parser.add_argument("-n", "--normalizer", type=str,
                     help="Some characterss cannot be removed through use of the -b command because they are used to normalize eax. To remove these characters, insert custom, pre-tested instructions to normalize eax in this format: -n \"and eax,0x222222222\\nand eax,0x22222222\". Instructions do not need to be valid.")
 parser.add_argument("-f", "--file", type=str,
