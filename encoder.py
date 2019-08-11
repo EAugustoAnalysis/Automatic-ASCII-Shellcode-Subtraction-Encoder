@@ -39,25 +39,35 @@ parser = argparse.ArgumentParser() #Argument that takes shellcode
 parser.add_argument("-s", "--shellcode", type=str,
                     help="Input hex shellcode with a byte length of a multiple of 4.")
 parser.add_argument("-b", "--badchars", type=str,
-                    help="Input badchars in comma separated format: -b \"0x01,0x02,0x03\". Note that too many additional badchars may cause code generation to fail.")
+                    help="Input badchars in comma separated format: -b \"0x01,0x02,0x03\". Note that too many additional badchars may cause code generation to fail. Default badchars: Any non-printable non-valid ASCII, 0x00,0x0a,0x0b,0x20,0x3A,0x3F.")
 parser.add_argument("-n", "--normalizer", type=str,
                     help="Some characters cannot be removed through use of the -b command because they are used to normalize eax. To remove these characters, insert custom, pre-tested instructions to normalize eax in this format: -n \"and eax,0x222222222\\nand eax,0x22222222\". Instructions do not need to be valid.")
 parser.add_argument("-f", "--file", type=str,
                     help="Output file for assembly code. Otherwise, it will only appear on the terminal. Format: -f file.asm")
+parser.add_argument("-p", "--pad", action="store_true",
+                    help="Automatically pads shellcode with nops to ensure length is a multiple of 4.")
 args = parser.parse_args()
 
 if not args.shellcode: #Exit if no shellcode given
 	parser.print_help()
 	parser.exit()
-if len(args.shellcode)%8!=0: #Exit if shellcode length is less than 4
-	parser.error("Shellcode byte length is not a multiple of 4, pad with nops")
+
+scode=args.shellcode
+if args.pad:
+	if len(scode)%2==0:
+		while len(scode)%8!=0:
+			scode+="90"
+	else:
+		parser.error("Malformed or invalid machine language")	
+		
+if len(scode)%8!=0: #Exit if shellcode length is less than 4
+	parser.error("Shellcode byte length is not a multiple of 4, pad shellcode and retry.")
+
 bdchars=[]
 if args.badchars:
 	bcharstxt=args.badchars.split(",")
 	bdchars+=[int(x,16) for x in bcharstxt]
 	
-
-scode=args.shellcode
 
 splitsc=[''.join(x) for x in zip(*[list(scode[z::8]) for z in range(8)])] #Split into fours
 print(Fore.GREEN+"\nAutomatic ASCII Shellcode Subtraction Encoder")
