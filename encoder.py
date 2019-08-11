@@ -36,7 +36,7 @@ def solve(b): #BUGTREE's function that sub encodes 32 bit hex addresses in 0xFFF
 
 parser = argparse.ArgumentParser() #Argument that takes shellcode 
 parser.add_argument("-s", "--shellcode", type=str,
-                    help="Input hex shellcode with a byte length of a multiple of 4. Doesn't work right if shellcode contains null bytes.")
+                    help="Input hex shellcode with a byte length of a multiple of 4. Handles null bytes fine, but I wouldn't risk it.")
 args = parser.parse_args()
 
 if not args.shellcode: #Exit if no shellcode given
