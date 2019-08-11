@@ -19,7 +19,9 @@ Note: Shellcode length must be a multiple of 4, nop padding can accomplish this.
 
 This script will not generate the instructions required to reserve stack space for the decoded shellcode.
 
+Used to exploit LTER in Vulnserver with shellcode containing null bytes (unencoded MSFVenom Reverse Shell).
+
 Coming Soon:
 - Verbosity settings
-- Custom badchars, currently badchars are 00, 20, 0a, 0d, 3a, 3f, and anything that's not valid ASCII
+- Custom badchars, (currently badchars are 00, 20, 0a, 0d, 3a, 3f, and anything that's not valid ASCII)
 - Custom output files
