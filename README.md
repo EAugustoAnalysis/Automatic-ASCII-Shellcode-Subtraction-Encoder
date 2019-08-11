@@ -1,5 +1,6 @@
 # Automatic ASCII Shellcode Subtraction Encoder
-Generates printable ASCII subtraction encoded shellcode for NASM.
+Generates printable ASCII subtraction encoded shellcode in assembly format for NASM.
+
 Installation
 ```
 $ git clone https://github.com/EAugustoAnalysis/Automatic-ASCII-Shellcode-Subtraction-Encoder.git
