@@ -20,6 +20,10 @@ Note: Shellcode length must be a multiple of 4, nop padding can accomplish this.
 This script will not generate the instructions required to reserve stack space for the decoded shellcode.
 
 Used to exploit LTER in Vulnserver with shellcode containing null bytes (unencoded MSFVenom Reverse Shell).
+Confirmed working with most MSFVenom x86 encoders.
+
+Known Compatibility Issues
+- When used with MSFVenom Shikata_ga_nai encoder, has an unexplained tendency to generate odd instructions and overwrite the EIP.
 
 Coming Soon:
 - Verbosity settings
