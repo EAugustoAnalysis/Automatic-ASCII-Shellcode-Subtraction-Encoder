@@ -36,7 +36,7 @@ Known Compatibility Issues
 
 Coming Soon:
 - Verbosity settings
-- Return length of shellcode
+- Return byte length of generated shellcode
 - ~~Proper processing of "0x00000000" lines~~
 implemented
 - ~~Custom badchars, (currently badchars are 00, 20, 0a, 0d, 3a, 3f, and any character that's not printable, valid ASCII) ~~
