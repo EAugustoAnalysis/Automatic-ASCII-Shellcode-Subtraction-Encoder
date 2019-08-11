@@ -36,6 +36,11 @@ This script will not generate the instructions required to reserve stack space f
 Known Compatibility Issues
 - When used with MSFVenom Shikata_ga_nai encoder, has an unexplained tendency to generate odd instructions and overwrite the EIP.
 
+Default Normalizer
+```
+and eax,0x554e4d4a
+and eax,0x2a313235 
+```
 
 # Coming Soon
 - Verbosity settings
