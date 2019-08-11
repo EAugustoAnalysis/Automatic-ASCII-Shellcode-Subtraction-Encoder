@@ -20,7 +20,7 @@ Example
 $ python3 encoder.py -s 6681caff0f42526a0258cd2e3c055a74efb8543030578bfaaf75eaaf75e7ffe7
 ```
 
-Outputs assembly to aassc.asm, gives breakdown on terminal
+Outputs assembly to aassc.asm, gives additional information on terminal.
 
 Note: Shellcode length must be a multiple of 4, nop padding can accomplish this. Shellcode must be in hex format.
 
