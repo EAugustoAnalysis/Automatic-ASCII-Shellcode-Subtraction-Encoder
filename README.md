@@ -15,6 +15,7 @@ Usage
 $ python3 encoder.py -s [shellcode]
 ```
 Outputs assembly to aassc.asm, gives breakdown on terminal
+
 Note: Shellcode length must be a multiple of 4, nop padding can accomplish this. Hex format only for now.
 
 This script will not generate the instructions required to reserve stack space for the decoded shellcode.
