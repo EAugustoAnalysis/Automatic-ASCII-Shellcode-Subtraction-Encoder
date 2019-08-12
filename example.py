@@ -4,7 +4,7 @@
 from socket import *
 
 s=socket(AF_INET,SOCK_STREAM)
-s.connect(('192.168.1.1',9999))
+s.connect(('192.168.100.25',9999))
 
 #What spike put before our A's
 buffer="LTER /.../"
