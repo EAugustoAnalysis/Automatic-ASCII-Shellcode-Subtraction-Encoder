@@ -46,6 +46,7 @@ Default (immutable) badchars: ```0x00,0x01-0x20 (includes 0x0d and 0x0a),0x3a,0x
 
 # Coming Soon
 - Verbosity settings
+- Remove annoying extra byte that sometimes appears on verification sum
 - ~~Automatic nop padding~~
 implemented as an optional flag
 - Return byte length of generated shellcode
