@@ -52,7 +52,7 @@ https://medium.com/@eaugusto/automatic-ascii-shellcode-subtraction-encoder-450b2
 
 # Coming Soon
 - Verbosity settings
-- Remove annoying extra byte that sometimes appears on verification sum
+- ~~Remove annoying extra byte that sometimes appears on verification sum~~ implemented
 - ~~Automatic nop padding~~
 implemented as an optional flag
 - Return byte length of generated shellcode
