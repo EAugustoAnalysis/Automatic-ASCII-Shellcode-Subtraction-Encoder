@@ -47,6 +47,9 @@ and eax,0x2a313235 ;normalize eax
 
 Default (immutable) badchars: ```0x00,0x01-0x20 (includes 0x0d and 0x0a),0x3a,0x0f,0x80-0xFF```
 
+# Article
+https://medium.com/@eaugusto/automatic-ascii-shellcode-subtraction-encoder-450b2bd8a189
+
 # Coming Soon
 - Verbosity settings
 - Remove annoying extra byte that sometimes appears on verification sum
