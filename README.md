@@ -55,7 +55,7 @@ https://medium.com/@eaugusto/automatic-ascii-shellcode-subtraction-encoder-450b2
 - ~~Remove annoying extra byte that sometimes appears on verification sum~~ implemented
 - ~~Automatic nop padding~~
 implemented as an optional flag
-- Return byte length of generated shellcode
+- Alignment of ESP by a user defined offset
 - ~~Proper processing of "0x00000000" lines~~
 implemented
 - ~~Custom badchars, (currently badchars are 00, 20, 0a, 0d, 3a, 3f, and any character that's not printable, valid ASCII)~~
@@ -67,5 +67,6 @@ implemented
 
 # Coming Eventually
 - Automatic badchar-based normalizer adjustment
-- Alignment of ESP by a user defined offset
-- Production of shellcode in hex format instead of assembly code
+- Production of shellcode in insertable format as an option
+- Return byte length of generated shellcode
+
