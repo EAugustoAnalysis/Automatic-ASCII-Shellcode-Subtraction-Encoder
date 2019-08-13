@@ -67,3 +67,4 @@ implemented
 
 # Coming Eventually
 - Automatic badchar-based normalizer adjustment
+- Alignment of ESP by a user defined offset
