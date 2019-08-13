@@ -68,3 +68,4 @@ implemented
 # Coming Eventually
 - Automatic badchar-based normalizer adjustment
 - Alignment of ESP by a user defined offset
+- Production of shellcode in hex format instead of assembly code
