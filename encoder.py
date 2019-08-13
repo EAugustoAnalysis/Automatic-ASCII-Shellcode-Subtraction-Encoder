@@ -6,12 +6,9 @@ import argparse
 from z3 import *
 from colorama import Fore,Back,Style
 
-#Remember to give it a help dialogue and the ability to check if an string length is a multiple of 8
-#It can advise padding with nops if not
-
 def solve(b,bc): #BUGTREE's function that sub encodes 32 bit hex addresses in 0xFFFFFFFF format
     s = Solver()
-    bad_chars = [ 0x20, 0x80, 0x0A, 0x0D, 0x2F, 0x3A, 0x3F ]
+    bad_chars = [ 0x20, 0x80, 0x0A, 0x0D, 0x2F, 0x3A, 0x3F, 0x2E, 0x40 ]
     bad_chars+=bc #I added ability to specify additional badchars
     x, y, z = BitVecs('x y z', 32)
     variables = [x, y, z]
@@ -33,13 +30,37 @@ def solve(b,bc): #BUGTREE's function that sub encodes 32 bit hex addresses in 0x
 
     return r
 
+def normalize(bc): #I tried to adapt this into a normalizer
+    s = Solver()
+    bad_chars = [ 0x20, 0x80, 0x0A, 0x0D, 0x2F, 0x3A, 0x3F, 0x2E, 0x40 ]
+    bad_chars+=bc #I added ability to specify additional badchars
+    x, y = BitVecs('x y', 32)
+    variables = [x, y]
+
+    for var in variables:
+        for k in range(0, 32, 8):
+            s.add(Extract(k+7, k, var) > BitVecVal(0x20, 8))
+            s.add(ULT(Extract(k+7, k, var), BitVecVal(0x80, 8)))
+            for c in bad_chars:
+                s.add(Extract(k+7, k, var) != BitVecVal(c, 8))
+
+    s.add(x&y==0)
+
+    s.check()
+    s.model()
+    r = []
+    for i in s.model():
+        r.append(s.model()[i].as_long())
+
+    return r
+
 parser = argparse.ArgumentParser() #Argument that takes shellcode 
 parser.add_argument("-s", "--shellcode", type=str,
                     help="Input hex shellcode with a byte length of a multiple of 4 or use -p flag to pad automatically.")
 parser.add_argument("-b", "--badchars", type=str,
-                    help="Input badchars in comma separated format: -b \"0x01,0x02,0x03\". Note that too many additional badchars may cause code generation to fail. Default badchars (immutable): Any non-printable non-valid ASCII, 0x00,0x0a,0x0b,0x20,0x3A,0x3F.")
+                    help="Input badchars in comma separated format: -b \"0x01,0x02,0x03\". Note that too many additional badchars may cause code generation to fail. Default badchars (immutable): Any non-printable non-valid ASCII, 0x00,0x0a,0x0b,0x20,0x3A,0x3F,0x2E,0x40.")
 parser.add_argument("-n", "--normalizer", type=str,
-                    help="Some characters cannot be removed through use of the -b command because they are used to normalize eax. To remove these characters, insert custom, pre-tested instructions to normalize eax in this format: -n \"and eax,0x222222222\\nand eax,0x22222222\". Instructions do not need to be valid.")
+                    help="Normalizer automatically adjusts for badchars, but if you cannot use \"and\" instructions, this flag can be used to insert custom, pre-tested instructions to normalize eax in this format: -n \"and eax,0x222222222\\nand eax,0x22222222\".") #This flag will not be usable with automatic shellcode generation when it is implemented.
 parser.add_argument("-f", "--file", type=str,
                     help="Output file for assembly code. Otherwise, it will only appear on the terminal. Format: -f file.asm")
 parser.add_argument("-p", "--pad", action="store_true",
@@ -59,7 +80,7 @@ if args.pad:
 		parser.error("Malformed or invalid machine language")	
 		
 if len(scode)%8!=0: #Exit if shellcode length is less than 4
-	parser.error("Shellcode byte length is not a multiple of 4, pad shellcode and retry.")
+	parser.error("Shellcode byte length is not a multiple of 4, pad shellcode or use -p flag and retry.")
 
 bdchars=[]
 if args.badchars:
@@ -124,6 +145,8 @@ if args.badchars:
 buffer+=";Note: You still need to set up the stack yourself, this is just the decoder\n\n"
 buffer+="global _start\n_start:\n\n"
 
+nres=normalize(bdchars)
+
 for i in range(0,len(reciporical)): #Assembly output
 	if precip[i]=='0x100000000':
 		buffer+=";~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
@@ -134,8 +157,8 @@ for i in range(0,len(reciporical)): #Assembly output
 				buffer+=norm[i]
 				buffer+="\n"
 		else:
-			buffer+="and eax,0x554e4d4a ;normalize eax\n"
-			buffer+="and eax,0x2a313235 ;normalize eax\n"
+			buffer+="and eax,"+hex(nres[0])+" ;normalize eax\n"
+			buffer+="and eax,"+hex(nres[1])+" ;normalize eax\n"
 		buffer+="push eax\n\n"
 	else:
 		sumCheck=0
@@ -155,8 +178,8 @@ for i in range(0,len(reciporical)): #Assembly output
 				buffer+=norm[i]
 				buffer+="\n"
 		else:
-			buffer+="and eax,0x554e4d4a ;normalize eax\n"
-			buffer+="and eax,0x2a313235 ;normalize eax\n"
+			buffer+="and eax,"+hex(nres[0])+" ;normalize eax\n"
+			buffer+="and eax,"+hex(nres[1])+" ;normalize eax\n"
 		for h in result[-3:]:
 			buffer+="sub eax,"+hex(h)+"\n"
 		buffer+="push eax\n\n"
