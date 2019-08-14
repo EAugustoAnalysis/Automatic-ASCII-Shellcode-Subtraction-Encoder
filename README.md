@@ -23,7 +23,7 @@ $ python3 encoder.py -s 6681caff0f42526a0258cd2e3c055a74efb8543030578bfaaf75eaaf
 $ python3 encoder.py -s 6681caff0f42526a0258cd2e3c055a74efb8543030578bfaaf75eaaf75e7ffe7 -f egghunter.asm
 $ python3 encoder.py -s 6681caff0f42526a0258cd2e3c055a74efb8543030578bfaaf75eaaf75e7ffe7 -b "0x2f,0x41" -n "and eax,0x23232323\nand eax,0x42324543\nand eax, 0x44444444"
 $ python3 encoder.py -s 6681caff0f42526a0258cd -p #Automatic nop padding enabled
-$ python3 encoder.py -s 6681caff0f42526a0258cd -n #Normalizes with sub instructions
+$ python3 encoder.py -s 6681caff0f42526a0258cd -q #Normalizes with sub instructions
 $ python3 encoder.py -s 6681caff0f42526a0258cd -e "0x0x0178ffe9,0x0178ff6a" #Move the ESP from 0x0x0178ffe9 to 0x0178ff6a with subtraction
 ```
 ![Example Usage](ASCII2.png)
