@@ -15,7 +15,7 @@ https://github.com/marcosValle/z3ncoder
 ```
 $ python3 encoder.py -s [shellcode] -b [badchars] -n [custom eax normalizer] -f [output file] -p -e [esp setup]
 ```
-![Help menu](ASCII.PNG)
+![Help menu updated](ASCII.PNG)
 
 # Example
 ```
