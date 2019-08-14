@@ -185,7 +185,7 @@ if args.espsetup:
 	elif args.altnorm:
 		norm=solve(int("0x0",16),bdchars)
 		for h in norm[-3:]:
-			buffer+="sub eax,"+hex(h)+" ;normalize eax\n"
+			buffer+="sub eax,"+hex(h)+" ;normalize eax for safety\n"
 	else:
 		buffer+="and eax,"+hex(nres[0])+" ;normalize eax for safety\n"
 		buffer+="and eax,"+hex(nres[1])+" ;normalize eax for safety\n"
