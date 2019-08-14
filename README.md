@@ -35,7 +35,7 @@ Cool new features:
 - Eax normalizer now automatically adjusts to remove user-defined badchars.
 ![Normalizer](ASCII4.png)
 - You can automatically set up the stack using the -e flags, takes the math out of stack setup.
-![Stack setup](ASCII2.png)
+![Stack setup](ASCII3.png)
 
 Shellcode length must be a multiple of 4 unless automatic padding is specified (-p). Nop padding can accomplish this. Shellcode must be in hex format.
 
