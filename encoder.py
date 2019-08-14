@@ -23,12 +23,14 @@ def solve(b,bc): #BUGTREE's function that sub encodes 32 bit hex addresses in 0x
 
     s.add(x+y+z==b)
 
-    s.check()
+    if not s.check()==sat: #Added error handling because it didn't previously exist
+	print(Fore.GREEN+"Badchars too restrictive, shellcode generation failed. Consider using a different payload, your shellcode is too (mathematically) powerful.")
+	exit(0)
     s.model()
     r = []
     for i in s.model():
         r.append(s.model()[i].as_long())
-
+	
     return r
 
 def normalize(bc): #I tried to adapt this into a normalizer
@@ -47,7 +49,9 @@ def normalize(bc): #I tried to adapt this into a normalizer
 
     s.add(x&y==0)
 
-    s.check()
+    if not s.check()==sat: #Added error handling because it didn't previously exist
+	print(Fore.GREEN+"Normalizer incompatible with badchars, consider using the -a flag to enable sub based normalizer or use a custom normalizer (-n)")
+	exit(0);
     s.model()
     r = []
     for i in s.model():
@@ -66,6 +70,8 @@ parser.add_argument("-f", "--file", type=str,
                     help="Output file for assembly code. Otherwise, it will only appear on the terminal. Format: -f file.asm")
 parser.add_argument("-p", "--pad", action="store_true",
                     help="Automatically pads shellcode with nops to ensure length is a multiple of 4.")
+parser.add_argument("-a", "--altnorm", action="store_true",
+                    help="Uses subtraction instructions to set eax to 0 instead of AND. Not optimal, will increase the size of the shellcode.")
 parser.add_argument("-e", "--espsetup", type=str,
                     help="Automatically sets up the stack for you. Format: -e \"0x[current ESP address], 0x[intended ESP address]\". ASLR safe, compatible with relocatable stacks.")
 args = parser.parse_args()
@@ -154,7 +160,7 @@ if not args.espsetup:
 buffer+="global _start\n_start:\n\n"
 
 nres=[0,0]
-if not args.normalizer:
+if (not args.normalizer) and (not args.altnorm):
 	nres=normalize(bdchars) #No need to do extra math if they're using a custom normalizer
 
 if args.espsetup:
@@ -176,6 +182,10 @@ if args.espsetup:
 		for g in range(0,len(norm)):
 			buffer+=norm[g]
 			buffer+="\n"
+	elif args.altnorm:
+		norm=solve(int("0x0",16),bdchars)
+		for h in norm[-3:]:
+			buffer+="sub eax,"+hex(h)+" ;normalize eax\n"
 	else:
 		buffer+="and eax,"+hex(nres[0])+" ;normalize eax for safety\n"
 		buffer+="and eax,"+hex(nres[1])+" ;normalize eax for safety\n"
@@ -198,6 +208,10 @@ for i in range(0,len(reciporical)): #Assembly output
 			for g in range(0,len(norm)):
 				buffer+=norm[g]
 				buffer+="\n"
+		elif args.altnorm:
+			norm=solve(int("0x0",16),bdchars)
+			for h in norm[-3:]:
+				buffer+="sub eax,"+hex(h)+" ;normalize eax\n"
 		else:
 			buffer+="and eax,"+hex(nres[0])+" ;normalize eax\n"
 			buffer+="and eax,"+hex(nres[1])+" ;normalize eax\n"
@@ -216,6 +230,10 @@ for i in range(0,len(reciporical)): #Assembly output
 			for g in range(0,len(norm)):
 				buffer+=norm[g]
 				buffer+="\n"
+		elif args.altnorm:
+			norm=solve(int("0x0",16),bdchars)
+			for h in norm[-3:]:
+				buffer+="sub eax,"+hex(h)+" ;normalize eax\n"
 		else:
 			buffer+="and eax,"+hex(nres[0])+" ;normalize eax\n"
 			buffer+="and eax,"+hex(nres[1])+" ;normalize eax\n"
