@@ -44,7 +44,7 @@ Shellcode length must be a multiple of 4 unless automatic padding is specified (
 - Confirmed working with most MSFVenom x86 encoders.
 
 Known Compatibility Issues
-- When used with MSFVenom Shikata_ga_nai encoder, has an unexplained tendency to generate odd instructions and overwrite the EIP. This may just be a debugger issue, as I have never encountered this problem using any other encoder or shellcode.
+- When used with MSFVenom Shikata_ga_nai encoder, has an unexplained tendency to overwrite the EIP. This may just be a debugger issue, as I have never encountered this problem using any other encoder or shellcode.
 
 Default (immutable) badchars: ```0x00,0x01-0x20 (includes 0x0d and 0x0a),0x3a,0x3f,0x40,0x2e,0x80-0xFF```
 
