@@ -245,7 +245,8 @@ for i in range(0,len(reciporical)): #Assembly output
 		for h in result[-3:]:
 			buffer+="sub eax,"+hex(h)+"\n"
 		buffer+="push eax\n\n"
-print(Fore.WHITE+buffer)
+if not args.file:
+	print(Fore.WHITE+buffer)
 
 def hexforml(val):
 	vh=hex(val) #convrt to hex
@@ -306,7 +307,7 @@ if args.mlgen:
 	mlbufff="\"\nscbuf+=\"".join(mlbufformat)
 
 	print(Fore.GREEN+"\n--------------------------------------------------------------------\n") #Printing time
-	print(Fore.GREEN+"Shellcode length: "+str(len(mlbuffer)/4))
+	print(Fore.GREEN+"Shellcode length: "+str(int(len(mlbuffer)/4)))
 	print(Fore.GREEN+"Shellcode Output:\n")
 
 	print(Fore.WHITE+"scbuf =\""+mlbufff+"\""+"\n")
