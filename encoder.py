@@ -299,13 +299,16 @@ if args.mlgen:
 			else:
 				mlbuffer+="\\x25"+hexforml(nres[0]) #sub
 				mlbuffer+="\\x25"+hexforml(nres[1])
-		for h in result[-3:]:
-			mlbuffer+="\\x2d"+hexforml(h)
+			for h in result[-3:]:
+				mlbuffer+="\\x2d"+hexforml(h)
 		mlbuffer+="\\x50" #push eax
 	#Divide into 32 byte strings for easy python printing here
-	mlbufformat=wrap(mlbuffer,64)
-	mlbufff="\"\nscbuf+=\"".join(mlbufformat)
-
+	mlbufff=""	
+	if not len(mlbuffer)<=64:
+		mlbufformat=wrap(mlbuffer,64)
+		mlbufff="\"\nscbuf+=\"".join(mlbufformat)
+	else:
+		mlbufff=mlbuffer
 	print(Fore.GREEN+"\n--------------------------------------------------------------------\n") #Printing time
 	print(Fore.GREEN+"Shellcode length: "+str(int(len(mlbuffer)/4)))
 	print(Fore.GREEN+"Shellcode Output:\n")
