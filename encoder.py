@@ -68,7 +68,7 @@ parser.add_argument("-b", "--badchars", type=str,
 parser.add_argument("-n", "--normalizer", type=str,
                     help="Normalizer automatically adjusts for badchars, but if you cannot use \"and\" instructions, this flag can be used to insert custom, pre-tested instructions to normalize eax in this format: -n \"and eax,0x222222222\\nand eax,0x22222222\".") #This flag will not be usable with automatic shellcode generation when it is implemented.
 parser.add_argument("-f", "--file", type=str,
-                    help="Output file for NASM assembly code. Otherwise, it will only appear on the terminal. Format: -f file.asm")
+                    help="Output file for NASM assembly code. Otherwise, it will appear on the terminal. Format: -f file.asm")
 parser.add_argument("-p", "--pad", action="store_true",
                     help="Automatically pads shellcode with nops to ensure length is a multiple of 4.")
 parser.add_argument("-a", "--altnorm", action="store_true",
@@ -105,7 +105,10 @@ if (not args.normalizer) and (not args.altnorm): #Normalizer setup
 	nres=normalize(bdchars) #No need to do extra math if they're using a custom normalizer
 
 if args.mlgen and args.normalizer:
-	parser.error("Cannot assemble shellcode when custom normalizer is in use.")	
+	parser.error("Cannot assemble shellcode when custom normalizer is in use.")
+	
+if args.altnorm and args.normalizer:
+	parser.error("Cannot use two normalizers.")
 
 splitsc=[''.join(x) for x in zip(*[list(scode[z::8]) for z in range(8)])] #Split into fours
 print(Fore.GREEN+"\nAutomatic ASCII Shellcode Subtraction Encoder")
