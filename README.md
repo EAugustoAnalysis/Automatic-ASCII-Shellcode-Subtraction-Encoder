@@ -55,11 +55,11 @@ Known Compatibility Issues
 Default (immutable) badchars: ```0x00,0x01-0x20 (includes 0x0d and 0x0a),0x3a,0x3f,0x40,0x2e,0x80-0xFF```
 
 # Coming Soon
-- ~~Verbosity settings~~
+- ~~Verbosity settings~~ implemented
 - ~~Remove annoying extra byte that sometimes appears on verification sum~~ implemented
 - ~~Automatic nop padding~~
 implemented as an optional flag
-- Alignment of ESP by a user defined offset
+- ~~Alignment of ESP by a user defined offset~~ implemented
 - ~~Proper processing of "0x00000000" lines~~
 implemented
 - ~~Custom badchars, (currently badchars are 00, 20, 0a, 0d, 3a, 3f, and any character that's not printable, valid ASCII)~~
