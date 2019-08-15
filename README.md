@@ -41,7 +41,7 @@ Cool new features:
 ![Normalizer](ASCII4.png)
 - You can automatically set up the stack using the -e flags, takes the math out of stack setup.
 ![Stack setup](ASCII3.png)
-- The program no longer allows the algorithm to give inaccurate results! This is not a very likely scenario, but it's possible there are just too many badchars for your particular payload to work payload to work.
+- The program no longer allows the algorithm to give inaccurate results! This is not a very likely scenario, but it's possible there are just too many badchars for your particular payload to work.
 ![Program](ASCII5.png)
 
 Shellcode length must be a multiple of 4 unless automatic padding is specified (-p). Nop padding can accomplish this. Shellcode must be in hex format.
