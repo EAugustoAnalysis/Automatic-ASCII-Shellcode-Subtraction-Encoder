@@ -1,5 +1,5 @@
 # Automatic ASCII Shellcode Subtraction Encoder
-Generates printable ASCII subtraction encoded shellcode in assembly format for NASM and shellcode format for inserting into exploits.
+Generates printable ASCII subtraction encoded shellcode in NASM assembly and python hex string format for inserting into exploits.
 
 # Installation
 ```
