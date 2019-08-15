@@ -25,8 +25,8 @@ def solve(b,bc): #BUGTREE's function that sub encodes 32 bit hex addresses in 0x
     s.add(x+y+z==b)
 
     if not s.check()==sat: #Added error handling because it didn't previously exist
-	print(Fore.GREEN+"Badchars too restrictive, shellcode generation failed. Consider using a different payload, your shellcode is too (mathematically) powerful.")
-	exit(0)
+        print(Fore.GREEN+"Badchars too restrictive, shellcode generation failed. Consider using a different payload, your shellcode is too (mathematically) powerful.")
+        exit(0)
     s.model()
     r = []
     for i in s.model():
@@ -51,8 +51,8 @@ def normalize(bc): #I tried to adapt this into a normalizer
     s.add(x&y==0)
 
     if not s.check()==sat: #Added error handling because it didn't previously exist
-	print(Fore.GREEN+"Normalizer incompatible with badchars, consider using the -a flag to enable sub based normalizer or use a custom normalizer (-n)")
-	exit(0);
+        print(Fore.GREEN+"Normalizer incompatible with badchars, consider using the -a flag to enable sub based normalizer or use a custom normalizer (-n)")
+        exit(0);
     s.model()
     r = []
     for i in s.model():
@@ -309,10 +309,8 @@ if args.mlgen:
 	print(Fore.GREEN+"Shellcode length: "+str(len(mlbuffer)/4))
 	print(Fore.GREEN+"Shellcode Output:\n")
 
-	if not len(mlbufff)%128==0: #If the length is going to make it iffy, add a " to the end
-		print(Fore.WHITE+"scbuf =\""+mlbufff+"\""+"\n")
-	else:
-		print(Fore.WHITE+"scbuf =\""+mlbufff+"\n")
+	print(Fore.WHITE+"scbuf =\""+mlbufff+"\""+"\n")
+
 if args.file:
 	asmfile=open(args.file,"w")
 	asmfile.write(buffer)
