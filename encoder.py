@@ -6,6 +6,7 @@ import argparse
 from z3 import *
 from colorama import Fore,Back,Style
 import re
+from textwrap import wrap
 
 def solve(b,bc): #BUGTREE's function that sub encodes 32 bit hex addresses in 0xFFFFFFFF format
     s = Solver()
@@ -67,13 +68,15 @@ parser.add_argument("-b", "--badchars", type=str,
 parser.add_argument("-n", "--normalizer", type=str,
                     help="Normalizer automatically adjusts for badchars, but if you cannot use \"and\" instructions, this flag can be used to insert custom, pre-tested instructions to normalize eax in this format: -n \"and eax,0x222222222\\nand eax,0x22222222\".") #This flag will not be usable with automatic shellcode generation when it is implemented.
 parser.add_argument("-f", "--file", type=str,
-                    help="Output file for assembly code. Otherwise, it will only appear on the terminal. Format: -f file.asm")
+                    help="Output file for NASM assembly code. Otherwise, it will only appear on the terminal. Format: -f file.asm")
 parser.add_argument("-p", "--pad", action="store_true",
                     help="Automatically pads shellcode with nops to ensure length is a multiple of 4.")
 parser.add_argument("-a", "--altnorm", action="store_true",
                     help="Uses subtraction instructions to set eax to 0 instead of AND. Not optimal, will increase the size of the shellcode.")
 parser.add_argument("-e", "--espsetup", type=str,
                     help="Automatically sets up the stack for you. Format: -e \"0x[current ESP address], 0x[intended ESP address]\". ASLR safe, compatible with relocatable stacks.")
+parser.add_argument("-m", "--mlgen", action="store_true",
+                    help="Generates hex shellcode in \"\\xff\\xff\\xff...\" format.")
 args = parser.parse_args()
 
 if not args.shellcode: #Exit if no shellcode given
@@ -96,7 +99,13 @@ bdchars=[]
 if args.badchars:
 	bcharstxt=args.badchars.split(",")
 	bdchars+=[int(x,16) for x in bcharstxt]
-	
+
+nres=[0,0]
+if (not args.normalizer) and (not args.altnorm): #Normalizer setup
+	nres=normalize(bdchars) #No need to do extra math if they're using a custom normalizer
+
+if args.mlgen and args.normalizer:
+	parser.error("Cannot assemble shellcode when custom normalizer is in use.")	
 
 splitsc=[''.join(x) for x in zip(*[list(scode[z::8]) for z in range(8)])] #Split into fours
 print(Fore.GREEN+"\nAutomatic ASCII Shellcode Subtraction Encoder")
@@ -158,10 +167,6 @@ if args.normalizer:
 if not args.espsetup:	
 	buffer+=";Note: You still need to set up the stack yourself, you do not have the -e flag on.\n\n"
 buffer+="global _start\n_start:\n\n"
-
-nres=[0,0]
-if (not args.normalizer) and (not args.altnorm):
-	nres=normalize(bdchars) #No need to do extra math if they're using a custom normalizer
 
 if args.espsetup:
 	sotext=args.espsetup.split(",")
@@ -241,6 +246,73 @@ for i in range(0,len(reciporical)): #Assembly output
 			buffer+="sub eax,"+hex(h)+"\n"
 		buffer+="push eax\n\n"
 print(Fore.WHITE+buffer)
+
+def hexforml(val):
+	vh=hex(val) #convrt to hex
+	vhs=vh[2:] #remove '0x'
+	vhr="".join(map(str.__add__,vhs[-2::-2],vhs[-1::-2])) #A more consise way to reverse every two bytes than I was previously using
+	return "\\x"+"\\x".join(a+b for a,b in zip(vhr[::2],vhr[1::2])) #Insert a \x before every character
+
+if args.mlgen:
+	mlbuffer=""
+
+	if args.espsetup:
+		sotext=args.espsetup.split(",")
+		espstart=int(sotext[0],16)
+		espend=int(sotext[1],16)
+		soffset=hex((espstart-espend)&(2**32-1)) #Give us the offset we need to subtract from the stack
+		espoff=solve(int(soffset,16),bdchars) #Find the subtraction instructions that could give us the stack offset we want
+		
+		if args.altnorm:
+			norm=solve(int("0x0",16),bdchars)
+			for h in norm[-3:]:
+				mlbuffer+="\\x2d"+hexforml(h) #sub
+		else:
+			mlbuffer+="\\x25"+hexforml(nres[0]) #add
+			mlbuffer+="\\x25"+hexforml(nres[1])
+		mlbuffer+="\\x54" #push esp 
+		mlbuffer+="\\x58" #pop eax
+		
+		for h in espoff[-3:]:
+			mlbuffer+="\\x2d"+hexforml(h) #sub	
+		
+		mlbuffer+="\\x50" #push eax
+		mlbuffer+="\\x5C" #pop esp
+
+	for i in range(0,len(reciporical)): #Assembly output
+		if precip[i]=='0x0':
+			if args.altnorm:
+				norm=solve(int("0x0",16),bdchars)
+				for h in norm[-3:]:
+					mlbuffer+="\\x2d"+hexforml(h) #sub
+			else:
+				mlbuffer+="\\x25"+hexforml(nres[0]) #add
+				mlbuffer+="\\x25"+hexforml(nres[1])
+			mlbuffer+="\\x50" #push eax
+		else:
+			result=solve(int(reciporical[i],16),bdchars)
+			if args.altnorm:
+				norm=solve(int("0x0",16),bdchars)
+				for h in norm[-3:]:
+					mlbuffer+="\\x2d"+hexforml(h) #sub
+			else:
+				mlbuffer+="\\x25"+hexforml(nres[0]) #sub
+				mlbuffer+="\\x25"+hexforml(nres[1])
+		for h in result[-3:]:
+			mlbuffer+="\\x2d"+hexforml(h)
+		mlbuffer+="\\x50" #push eax
+	#Divide into 32 byte strings for easy python printing here
+	mlbufformat=wrap(mlbuffer,64)
+	mlbufff="\"\nscbuf+=\"".join(mlbufformat)
+
+	print(Fore.GREEN+"\n--------------------------------------------------------------------\n") #Printing time
+	print(Fore.GREEN+"Shellcode length: "+str(len(mlbuffer)/4))
+	print(Fore.GREEN+"Shellcode Output:\n")
+
+	if not len(mlbufff)%128==0: #If the length is going to make it iffy, add a " to the end
+		print(Fore.WHITE+"scbuf =\""+mlbufff+"\""+"\n")
+	else:
+		print(Fore.WHITE+"scbuf =\""+mlbufff+"\n")
 if args.file:
 	asmfile=open(args.file,"w")
 	asmfile.write(buffer)
