@@ -1,3 +1,4 @@
+
 # Automatic ASCII Shellcode Subtraction Encoder
 Generates printable ASCII subtraction encoded shellcode in NASM assembly and python hex string format for inserting into exploits.
 
@@ -55,6 +56,8 @@ Known Compatibility Issues
 Default (immutable) badchars: ```0x00,0x01-0x20 (includes 0x0d and 0x0a),0x3a,0x3f,0x40,0x2e,0x80-0xFF```
 
 # Coming Soon
+- Optimize BUGTREE's algorith to use the minimum number of subtraction instructions
+- Fix -n and -a conflict
 - ~~Verbosity settings~~ implemented
 - ~~Remove annoying extra byte that sometimes appears on verification sum~~ implemented
 - ~~Automatic nop padding~~
