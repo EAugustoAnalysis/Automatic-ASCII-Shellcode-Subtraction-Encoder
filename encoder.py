@@ -301,7 +301,7 @@ if args.mlgen:
 				mlbuffer+="\\x25"+hexforml(nres[1])
 			for h in result[-3:]:
 				mlbuffer+="\\x2d"+hexforml(h)
-		mlbuffer+="\\x50" #push eax
+			mlbuffer+="\\x50" #push eax
 	#Divide into 32 byte strings for easy python printing here
 	mlbufff=""	
 	if not len(mlbuffer)<=64:
