@@ -40,12 +40,15 @@ $ python3 encoder.py -s 6681caff0f42526a0258cd -e "0x0x0178ffe9,0x0178ff6a" #Mov
 
 # Optimized Example
 - encoder.py
+
 ![Original](ASCII8.PNG)
 
 - opt_encoder.py
+
 ![Opt](ASCII7.PNG)
 
 - Dword example
+
 ![cases](ASCII9.PNG)
 
 # Use Case
