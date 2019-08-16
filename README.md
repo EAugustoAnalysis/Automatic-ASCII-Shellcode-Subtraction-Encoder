@@ -100,4 +100,5 @@ implemented
 - ~~Automatic badchar-based normalizer adjustment~~ implemented
 - ~~Production of shellcode in insertable format as an option~~ implemented as flag
 - ~~Return byte length of generated shellcode~~ implemented
+- Accept other shellcode formats as input
 
