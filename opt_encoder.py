@@ -169,7 +169,7 @@ if args.altnorm and args.normalizer:
 
 splitsc=[''.join(x) for x in zip(*[list(scode[z::8]) for z in range(8)])] #Split into fours
 print(Fore.GREEN+"\nAutomatic ASCII Shellcode Subtraction Encoder")
-print(Fore.GREEN+"Optimized Algorithm, SUB in one to two instructions")
+print(Fore.GREEN+"Optimized Algorithm, SUB as few times as possible")
 print(Fore.GREEN+"Written by Elias Augusto")
 print(Fore.GREEN+"Based on BUGTREE's z3ncoder, a single address subtraction encoder")
 if args.file:
