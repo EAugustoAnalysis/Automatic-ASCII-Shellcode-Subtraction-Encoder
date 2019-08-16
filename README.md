@@ -7,7 +7,7 @@ Welcome to the future of...this program! The newly created, highly optimized enc
 
 Nowhere close to opt_sub, but pretty good. It has a lot of default badchars, which accounts for some of that gap, but it's not intelligent enough to know that it doesn't have to normalize EAX after every instruction.
 
-All options are the same as in encoder.py, but the help dialogues highlight some differences. To try it out, use:
+All options are the same as in encoder.py (besides -o), but the help dialogues highlight some differences. To try it out, use:
 ```
 $ python3 opt_encoder.py -s [shellcode] -b [badchars] -n [custom eax normalizer] -f [output file] -p -e [esp setup] -m -a -o
 ```
@@ -104,5 +104,5 @@ implemented
 - ~~Production of shellcode in insertable format as an option~~ implemented as flag
 - ~~Return byte length of generated shellcode~~ implemented
 - Accept other shellcode formats as input
-- For opt_encoder.py - ability to remove all default badchars under 0x80 besides 0x0a, 0x0d, and 0x00. Use at your own risk.
+- ~~For opt_encoder.py - ability to remove all default badchars under 0x80 besides 0x0a, 0x0d, and 0x00. Use at your own risk.~~ implemented as optional flag.
 
