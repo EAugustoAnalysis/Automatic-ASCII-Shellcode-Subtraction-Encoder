@@ -2,8 +2,14 @@
 # Automatic ASCII Shellcode Subtraction Encoder
 Generates printable ASCII subtraction encoded shellcode in NASM assembly and python hex string format for inserting into exploits.
 
-# Opt_Encoder
+# Opt_Encoder.py
+Welcome to the future of...this program! The newly created, highly optimized encoder first tries encoding with one or two sub instructions before attempting the default three. This comes with numerous added benefits, including exponentially shorter payloads, improved badchar resistance, and in some instances a shorter sub-based eax normalizer if this option is selected.
 
+All options are the same as in encoder.py, but the help dialogues highlight some differences. To try it out, use:
+```
+$ python3 opt_encoder.py -s [shellcode] -b [badchars] -n [custom eax normalizer] -f [output file] -p -e [esp setup] -m -a
+```
+This version of the encoder has been tested and accuracy of results have been verified, but due to the fact that a lot of the code has been rewritten I am still labeling it "experimental" until I get more feedback. Both versions will be actively maintained.
 
 # Installation
 ```
@@ -17,7 +23,7 @@ https://github.com/marcosValle/z3ncoder
 
 # Usage
 ```
-$ python3 encoder.py -s [shellcode] -b [badchars] -n [custom eax normalizer] -f [output file] -p -e [esp setup] -m
+$ python3 encoder.py -s [shellcode] -b [badchars] -n [custom eax normalizer] -f [output file] -p -e [esp setup] -m -a
 ```
 ![Help menu updated](ASCII1.1.png)
 
