@@ -3,7 +3,7 @@
 Generates printable ASCII subtraction encoded shellcode in NASM assembly and python hex string format for inserting into exploits.
 
 # Opt_Encoder.py
-Welcome to the future of...this program! The newly created, highly optimized encoder first tries encoding with one or two sub instructions before attempting the default three. This comes with numerous added benefits, including exponentially shorter payloads, improved badchar resistance, and in some instances a shorter sub-based eax normalizer if this option is selected.
+Welcome to the future of...this program! The newly created, highly optimized encoder first tries encoding with one or two sub instructions before attempting the default three. This comes with numerous added benefits, including exponentially shorter payloads, improved badchar resistance, and in some instances a shorter sub-based eax normalizer if this option is selected. Nowhere close to opt_sub, but it's getting a bit competitive.
 
 All options are the same as in encoder.py, but the help dialogues highlight some differences. To try it out, use:
 ```
@@ -37,6 +37,7 @@ $ python3 encoder.py -s 6681caff0f42526a0258cd -a #Normalizes with sub instructi
 $ python3 encoder.py -s 6681caff0f42526a0258cd -e "0x0x0178ffe9,0x0178ff6a" #Move the ESP from 0x0x0178ffe9 to 0x0178ff6a with subtraction
 ```
 ![Example Usage](ASCII2.png)
+Example payload: windows/shell_reverse_tcp shellcode pre-encoded with x86/fnstenv_mov, because I had one on hand
 
 # Optimized Example
 - encoder.py
