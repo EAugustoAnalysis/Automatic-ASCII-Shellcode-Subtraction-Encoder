@@ -39,7 +39,7 @@ $ python3 encoder.py -s 6681caff0f42526a0258cd -e "0x0x0178ffe9,0x0178ff6a" #Mov
 ![Example Usage](ASCII2.png)
 
 # Optimized Example
-Example payload: windows/shell_reverse_tcp shellcode pre-encoded with x86/fnstenv_mov, because I had one on hand. Previously tested with multiple unencoded payloads I used in exploits with more modest results (237 to 227 bytes for a classic windows egghunter), but I wanted to illustrate how larger payloads lead to signifigantly shorter final shellcode.
+Example payload: windows/shell_reverse_tcp shellcode pre-encoded with x86/fnstenv_mov. Previously tested with multiple unencoded payloads with more modest results (237 to 227 bytes for a classic 32 byte windows egghunter), but I wanted to illustrate how larger payloads lead to signifigantly shorter final shellcode.
 
 - encoder.py
 
