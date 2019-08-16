@@ -3,7 +3,7 @@
 Generates printable ASCII subtraction encoded shellcode in NASM assembly and python hex string format for inserting into exploits.
 
 # Opt_Encoder.py
-Welcome to the future of...this program! The newly created, highly optimized encoder first tries encoding with one or two sub instructions before attempting the default three. This comes with numerous added benefits, including exponentially shorter payloads, improved badchar resistance, and in some instances a shorter sub-based eax normalizer if this option is selected. Nowhere close to opt_sub, but it's getting a bit competitive.
+Welcome to the future of...this program! The newly created, highly optimized encoder first tries encoding with one or two sub instructions before attempting the default three. This comes with numerous added benefits, including exponentially shorter payloads, improved badchar resistance, and in some instances a shorter sub-based eax normalizer if this option is selected. Nowhere close to opt_sub, but pretty good.
 
 All options are the same as in encoder.py, but the help dialogues highlight some differences. To try it out, use:
 ```
