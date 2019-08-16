@@ -82,7 +82,7 @@ Known Compatibility Issues
 Default (immutable) badchars: ```0x00,0x01-0x20 (includes 0x0d and 0x0a),0x3a,0x3f,0x40,0x2e,0x80-0xFF```
 
 # Coming Soon
-- For opt_encoder.py - ability to remove all default badchars besides 0x0a,0x0d, and 0x00. Use at your own risk.
+- For opt_encoder.py - ability to remove all default badchars under 0x80 besides 0x0a, 0x0d, and 0x00. Use at your own risk.
 - ~~Optimize BUGTREE's algorith to use the minimum number of subtraction instructions~~ implemented as a second python file
 - ~~Fix -n and -a conflict~~ fixed
 - ~~Verbosity settings~~ implemented
