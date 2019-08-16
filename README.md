@@ -37,9 +37,10 @@ $ python3 encoder.py -s 6681caff0f42526a0258cd -a #Normalizes with sub instructi
 $ python3 encoder.py -s 6681caff0f42526a0258cd -e "0x0x0178ffe9,0x0178ff6a" #Move the ESP from 0x0x0178ffe9 to 0x0178ff6a with subtraction
 ```
 ![Example Usage](ASCII2.png)
-Example payload: windows/shell_reverse_tcp shellcode pre-encoded with x86/fnstenv_mov, because I had one on hand
 
 # Optimized Example
+Example payload: windows/shell_reverse_tcp shellcode pre-encoded with x86/fnstenv_mov, because I had one on hand
+
 - encoder.py
 
 ![Original](ASCII8.PNG)
