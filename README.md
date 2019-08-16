@@ -66,7 +66,7 @@ Cool new features:
 ![shellcode](ASCII6.PNG)
 - Eax normalizer now automatically adjusts to remove user-defined badchars.
 ![Normalizer](ASCII4.png)
-- You can automatically set up the stack using the -e flags, takes the math out of stack setup.
+- You can automatically set up the stack using the -e flag, takes the math out of stack setup.
 ![Stack setup](ASCII3.png)
 - The program no longer allows the algorithm to give inaccurate results! This is not a very likely scenario, but it's possible there are just too many badchars for your particular payload to work.
 ![Program](ASCII5.png)
@@ -77,11 +77,12 @@ Shellcode length must be a multiple of 4 unless automatic padding is specified (
 - Confirmed working with most MSFVenom x86 encoders.
 
 Known Compatibility Issues
-- When used with MSFVenom Shikata_ga_nai encoder, has an unexplained tendency to overwrite the EIP. This may just be a debugger issue, as I have never encountered this problem using any other encoder or shellcode.
+- When used with MSFVenom Shikata_ga_nai encoder, has an unexplained tendency to overwrite the EIP. This may just be a debugger issue, as I have never encountered this problem using any other encoder or shellcode. - Not sure if this is still applicable, code has been rewritten.
 
 Default (immutable) badchars: ```0x00,0x01-0x20 (includes 0x0d and 0x0a),0x3a,0x3f,0x40,0x2e,0x80-0xFF```
 
 # Coming Soon
+- For opt_encoder.py - ability to remove all default badchars besides 0x0a,0x0d, and 0x00. Use at your own risk.
 - ~~Optimize BUGTREE's algorith to use the minimum number of subtraction instructions~~ implemented as a second python file
 - ~~Fix -n and -a conflict~~ fixed
 - ~~Verbosity settings~~ implemented
