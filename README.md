@@ -9,7 +9,7 @@ Nowhere close to opt_sub, but pretty good. It has a lot of default badchars, whi
 
 All options are the same as in encoder.py (besides -o), but the help dialogues highlight some differences. To try it out, use:
 ```
-$ python3 opt_encoder.py -s [shellcode] -b [badchars] -n [custom eax normalizer] -f [output file] -p -e [esp setup] -m -a -o
+$ python3 opt_encoder.py -s [shellcode] -o -b [badchars] -n [custom eax normalizer] -f [output file] -p -e [esp setup] -m -a
 ```
 This version of the encoder has been tested and accuracy of results have been verified, but due to the fact that a lot of the code has been rewritten I am still labeling it "experimental" until I get more feedback. Both versions will be actively maintained.
 
